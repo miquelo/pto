@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.2">
+	
+	<!-- ISSUE: https://java.net/jira/browse/JAVASERVERFACES-3399 -->
+	<!-- xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/web-facesconfig_2_2.xsd" -->
+	
+	<application>
+		<resource-bundle>
+			<base-name>net.preparatusopos.member.web.Messages</base-name>
+			<var>messages</var>
+		</resource-bundle>
+		<resource-bundle>
+			<base-name>net.preparatusopos.member.web.ProfileCountryFieldText</base-name>
+			<var>profileCountryFieldText</var>
+		</resource-bundle>
+		<resource-bundle>
+			<base-name>net.preparatusopos.member.web.ProfileSpecializationText</base-name>
+			<var>profileSpecializationText</var>
+		</resource-bundle>
+		<!--resource-handler>net.jeetk.faces.application.FileStorageResourceHandler</resource-handler-->
+	</application>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>home</from-outcome>
+			<to-view-id>/home.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>logout</from-outcome>
+			<to-view-id>/logout.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>register</from-outcome>
+			<to-view-id>/register.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>help</from-outcome>
+			<to-view-id>/help.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>account</from-outcome>
+			<to-view-id>/account.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>print</from-outcome>
+			<to-view-id>/print.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/home.xhtml</from-view-id>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>register</from-outcome>
+			<to-view-id>/register.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>password-restore</from-outcome>
+			<to-view-id>/password-restore.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>register</from-outcome>
+			<to-view-id>/register.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/logout.xhtml</from-view-id>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/register.xhtml</from-view-id>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/account.xhtml</from-view-id>
+	</navigation-rule>
+	
+</faces-config>

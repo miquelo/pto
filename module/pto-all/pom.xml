@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>net.preparatusopos.project</groupId>
+		<artifactId>pto-project</artifactId>
+		<version>0.1.0</version>
+	</parent>
+	
+	<artifactId>pto-all</artifactId>
+	<packaging>pom</packaging>
+	
+	<name>Prepara Tus Opos - All modules</name>
+	<description>
+		All modules of Prepara Tus Opos.
+	</description>
+	
+	<modules>
+		<module>../pto-ma-web</module>
+	</modules>
+	
+</project>

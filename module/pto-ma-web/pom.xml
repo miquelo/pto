@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>net.preparatusopos.project</groupId>
+		<artifactId>pto-project</artifactId>
+		<version>0.1.0</version>
+	</parent>
+	
+	<groupId>net.preparatusopos.member</groupId>
+	<artifactId>pto-ma-web</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	
+	<name>Prepara tus Opos - MA WEB</name>
+	<description>
+		Módulo "Member Area WEB" de "Prepara tus Opos".
+	</description>
+	
+	<dependencies>
+	
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>net.jeetk.util</groupId>
+			<artifactId>jeetk-util</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		
+	</dependencies>
+	
+	<build>
+		<plugins>
+		
+			<plugin>
+				<groupId>com.googlecode.maven-download-plugin</groupId>
+				<artifactId>download-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<id>install-favicon</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>wget</goal>
+						</goals>
+						<configuration>
+							<url>https://www.iconfinder.com/icons/66973/download/png/32</url>
+							<outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/resources/theme/basic/image</outputDirectory>
+							<outputFileName>favicon.png</outputFileName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+	
+</project>

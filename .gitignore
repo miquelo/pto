@@ -1,0 +1,6 @@
+.settings/
+__pycache__/
+target/
+.classpath
+.project
+setup.ini

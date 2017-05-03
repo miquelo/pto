@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>net.preparatusopos.project</groupId>
+	<artifactId>pto-project</artifactId>
+	<version>0.1.0</version>
+	<packaging>pom</packaging>
+	
+	<name>Prepara Tus Opos - Project</name>
+	<description>
+		Project definition of Prepara Tus Opos.
+	</description>
+	
+	<organization>
+		<name>PTO Team</name>
+		<url>https://bitbucket.org/oposteam/pto/</url>
+	</organization>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+			
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.3</version>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+					</configuration>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jarsigner-plugin</artifactId>
+					<version>1.4</version>
+					<configuration>
+						<keystore>${settings.codesigner.keystore}</keystore>
+						<storetype>${settings.codesigner.storetype}</storetype>
+						<alias>${settings.codesigner.alias}</alias>
+						<keypass>${settings.codesigner.keypass}</keypass>
+						<storepass>${settings.codesigner.storepass}</storepass>
+						<sigfile>PTO</sigfile>
+					</configuration>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.4</version>
+					<configuration>
+						<reportPlugins>
+						
+							<plugin>
+								<groupId>org.apache.maven.plugins</groupId>
+								<artifactId>maven-javadoc-plugin</artifactId>
+								<version>2.10.3</version>
+								<configuration>
+									<windowtitle>PTO API</windowtitle>
+									<doctitle>PTO API</doctitle>
+									<charset>UTF-8</charset>
+									<encoding>UTF-8</encoding>
+									<links>
+										<link>https://docs.oracle.com/javase/8/docs/api/</link>
+										<link>http://docs.oracle.com/javaee/7/api/</link>
+									</links>
+								</configuration>
+							</plugin>
+							
+						</reportPlugins>
+					</configuration>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.googlecode.maven-download-plugin</groupId>
+										<artifactId>download-maven-plugin</artifactId>
+										<versionRange>[1.2.1,)</versionRange>
+										<goals>
+											<goal>wget</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore/>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-dependency-plugin
+										</artifactId>
+										<versionRange>
+											[3.0.0,)
+										</versionRange>
+										<goals>
+											<goal>copy</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+				
+			</plugins>
+		</pluginManagement>
+	</build>
+	
+	<properties>
+	
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<settings.codesigner.keystore>keystore.jks</settings.codesigner.keystore>
+		<settings.codesigner.storetype>JKS</settings.codesigner.storetype>
+		<settings.codesigner.alias>codesigner</settings.codesigner.alias>
+		<settings.codesigner.keypass>12345678</settings.codesigner.keypass>
+		<settings.codesigner.storepass>12345678</settings.codesigner.storepass>
+		
+	</properties>
+	
+</project>
