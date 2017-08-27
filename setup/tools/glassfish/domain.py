@@ -85,6 +85,12 @@ class Node:
 	def name(self):
 		return self.__name
 
+	def restored(self):
+		if not self.__domain_mgr.node_available(self.__name):
+			# TODO Destroy instances and recreate node
+			raise Exception("Not implemented")
+		return self
+
 	def instances(self):
 		yield from self.__domain_mgr.list_instances(self.__name)
 
@@ -200,6 +206,18 @@ class DomainManager:
 		for name, sub_resp in self.__child_resources(resp):
 			yield Node(self, name, self.__entity(sub_resp)["nodeHost"])
 
+	def node_available(self, node_name):
+		resp = requests.get(
+			self.__target("/nodes/node/{}/ping-node-ssh".format(node_name)),
+			headers={
+				"Accept": "application/json",
+				"X-Requested-By": "GlassFish REST HTML interface"
+			},
+			verify=False,
+			auth=self.__auth()
+		)
+		return resp.json()["exit_code"] == "SUCCESS"
+
 	def create_node(self, name):
 		machine = self.__machines.machine_inst(
 			name, [
@@ -300,7 +318,7 @@ class DomainManager:
 		for name, sub_resp in self.__child_resources(resp):
 			if self.__entity(sub_resp)["nodeRef"] == node_name:
 				yield Instance(self, name)
-				
+
 	def create_instance(self, name, node_name, cluster_name):
 		resp = requests.post(
 			self.__target("/create-instance"),

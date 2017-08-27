@@ -200,7 +200,7 @@ class Updater:
 	def __domain_node(self, mgd_domain, name):
 		for node in mgd_domain.nodes():
 			if name == node.name:
-				return node
+				return node.restored()
 		return mgd_domain.create_node(name)
 
 	def __domain_cluster(self, mgd_domain, name):
