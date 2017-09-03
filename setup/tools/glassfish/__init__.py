@@ -18,4 +18,3 @@ def restore(ifrs_type, ifrs_params, management_public_key_path,
 	if build_images:
 		machines.build_images()
 	return agent.Agent(machines, master_password)
-

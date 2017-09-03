@@ -85,12 +85,6 @@ class Node:
 	def name(self):
 		return self.__name
 
-	def restored(self):
-		if not self.__domain_mgr.node_available(self.__name):
-			# TODO Destroy instances and recreate node
-			raise Exception("Not implemented")
-		return self
-
 	def instances(self):
 		yield from self.__domain_mgr.list_instances(self.__name)
 
@@ -165,6 +159,18 @@ class DomainManager:
 					return self.__machines.asadmin(node_info["host"])
 			raise LookupError("Node '{}' was not found".format(node_name))
 
+	def __node_available(self, node_name):
+		resp = requests.get(
+			self.__target("/nodes/node/{}/ping-node-ssh".format(node_name)),
+			headers={
+				"Accept": "application/json",
+				"X-Requested-By": "GlassFish REST HTML interface"
+			},
+			verify=False,
+			auth=self.__auth()
+		)
+		return resp.json()["exit_code"] == "SUCCESS"
+
 	def __entity(self, resp):
 		return resp.json()["extraProperties"]["entity"]
 
@@ -204,19 +210,8 @@ class DomainManager:
 			auth=self.__auth()
 		)
 		for name, sub_resp in self.__child_resources(resp):
-			yield Node(self, name, self.__entity(sub_resp)["nodeHost"])
-
-	def node_available(self, node_name):
-		resp = requests.get(
-			self.__target("/nodes/node/{}/ping-node-ssh".format(node_name)),
-			headers={
-				"Accept": "application/json",
-				"X-Requested-By": "GlassFish REST HTML interface"
-			},
-			verify=False,
-			auth=self.__auth()
-		)
-		return resp.json()["exit_code"] == "SUCCESS"
+			if self.__node_available(name):
+				yield Node(self, name, self.__entity(sub_resp)["nodeHost"])
 
 	def create_node(self, name):
 		machine = self.__machines.machine_inst(

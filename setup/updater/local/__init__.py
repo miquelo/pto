@@ -1,8 +1,9 @@
+import caviar
+import caviar.domain
 import docker
 import getpass
 import os
 import tools.artifacts.maven
-import tools.glassfish
 
 class Updater:
 
@@ -116,17 +117,16 @@ class Updater:
 			version="1.23"
 		)
 
-		self.__glassfish_agent = tools.glassfish.restore(
-			"docker",
+		self.__glassfish_env = caviar.domain.environment(
+			"caviar.machinery.docker",
 			{
 				"docker-client": self.__docker_client,
-				"image-version": self.__glassfish_image_version,
-				"container-prefix": self.__glassfish_container_prefix
+				"container-prefix": self.__glassfish_container_prefix,
+				"build-images": True
 			},
 			self.__management_public_key_path,
 			self.__management_private_key_path,
-			self.__domain_master_password,
-			build_images=True
+			self.__domain_master_password
 		)
 		return self
 
@@ -200,7 +200,7 @@ class Updater:
 	def __domain_node(self, mgd_domain, name):
 		for node in mgd_domain.nodes():
 			if name == node.name:
-				return node.restored()
+				return node
 		return mgd_domain.create_node(name)
 
 	def __domain_cluster(self, mgd_domain, name):
